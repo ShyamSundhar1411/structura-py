@@ -1,0 +1,116 @@
+- name: readme.MD
+  description: "A sample README file"
+  directory: "root"
+  content: |
+    # Project Name
+
+    ## Overview
+    This project is generated using structura. It includes essential files to kickstart development.
+
+    ## Usage
+    Run the project using:
+
+    ```sh
+    python main.py
+    ```
+
+    ## Project Structure
+    ```
+    /your-project/
+    ├── app/
+    │   ├── __init__.py
+    ├── .env
+    ├── readme.MD
+    ├── requirements.txt
+    ├── main.py
+    ```
+
+    ## Environment Variables
+    The `.env` file contains environment variables:
+
+    ```env
+    DB_HOST=localhost
+    DB_PORT=5432
+    DB_USER=username
+    DB_PASSWORD=password
+    DB_NAME=mydatabase
+    ```
+
+    ## Installation
+    Install dependencies using:
+
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+    ## Contributing
+    Contributions are welcome! Please submit a PR or create an issue.
+
+- name: .gitignore
+  description: "A .gitignore file for Python projects"
+  directory: "root"
+  content: |
+    ### Python ###
+    __pycache__/
+    *.py[cod]
+    *$py.class
+
+    # Virtual environments
+    .venv/
+    env/
+    venv/
+    ENV/
+    env.bak/
+    venv.bak/
+
+    # Environment variables
+    .env
+
+    # Logs and databases
+    *.log
+    db.sqlite3
+    db.sqlite3-journal
+
+    # Distribution / packaging
+    build/
+    dist/
+    *.egg-info/
+    .eggs/
+    MANIFEST
+
+    # Unit test / coverage reports
+    .tox/
+    .nox/
+    .coverage
+    coverage.xml
+    htmlcov/
+    .pytest_cache/
+
+    # Jupyter Notebook
+    .ipynb_checkpoints
+
+    # mypy
+    .mypy_cache/
+    .dmypy.json
+    dmypy.json
+
+    # Pyre type checker
+    .pyre/
+
+    # pytype static type analyzer
+    .pytype/
+
+    # Cython debug symbols
+    cython_debug/
+
+    # IDE / Editor settings
+    .idea/
+    .vscode/
+    .ropeproject/
+    .spyderproject/
+    .spyproject/
+
+    # PDM / Poetry / Pipenv
+    pdm.lock
+    poetry.lock
+    Pipfile.lock
