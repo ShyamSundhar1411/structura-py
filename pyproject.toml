@@ -7,8 +7,32 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+typer = "^0.15.2"
+inquirerpy = "^0.3.4"
+flake8 = "^7.1.2"
+black = "^25.1.0"
+mypy = "^1.15.0"
+isort = "^6.0.1"
+pre-commit = "^4.1.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = ["__init__.py"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+default_section = "THIRDPARTY"
+known_first_party = []
+known_third_party = []
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
