@@ -31,7 +31,7 @@ multi_line_output = 3
 line_length = 88
 default_section = "THIRDPARTY"
 known_first_party = []
-known_third_party = []
+known_third_party = ["commands", "typer"]
 
 [tool.mypy]
 strict = true
