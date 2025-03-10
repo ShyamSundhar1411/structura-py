@@ -1,6 +1,12 @@
+import os
+from typing import Dict, List, Union
+
+import typer
+import yaml
 from inquirer import prompt
 from pydantic import ValidationError
 
+from src.models.architecture_model import ArchitectureModel
 from src.models.project_model import ProjectModel
 from src.utils.prompt_utils import input_prompt, select_prompt
 
@@ -38,3 +44,24 @@ def project_prompt_builder():
         return project, None
     except ValidationError as e:
         return None, str(e)
+
+
+def print_folder_structure(folder_structure: Union[Dict, List], indent: int = 0):
+    """Recursively prints the folder structure from an ArchitectureModel."""
+    if isinstance(folder_structure, list):
+        for folder in folder_structure:
+            typer.echo("  " * indent + f"📂 {folder}")
+    elif isinstance(folder_structure, dict):
+        for folder, subfolders in folder_structure.items():
+            typer.echo("  " * indent + f"📂 {folder}")
+            print_folder_structure(subfolders, indent + 1)
+
+
+def load_structure_from_architecture(project: ProjectModel):
+    file_name = f"{project.architecture.lower()}.yaml"
+    file_path = os.path.join(os.path.dirname(__file__), "..", "templates", file_name)
+    with open(file_path) as file:
+        yaml_data = yaml.safe_load(file)
+
+    architecture_structure = ArchitectureModel(**yaml_data)
+    print_folder_structure(architecture_structure.folders)
