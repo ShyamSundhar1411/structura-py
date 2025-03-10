@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field, field_validator
 
 class ProjectModel(BaseModel):
     name: str = Field(..., min_length=3, max_length=50, description="Project Name")
-    path: str = Field(..., min_length=3, max_length=50, description="Project Path")
+    path: str = Field(..., min_length=1, max_length=50, description="Project Path")
     description: str = Field(
         ..., min_length=3, max_length=50, description="Project Description"
     )
