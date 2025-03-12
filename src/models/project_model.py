@@ -18,6 +18,4 @@ class ProjectModel(BaseModel):
     def validate_path(cls, value):
         """Ensure the path is valid (absolute or relative) and create if needed."""
         abs_path = os.path.abspath(value)
-        if not os.path.isdir(abs_path):
-            raise ValueError("Path must be a directory, not a file.")
         return abs_path
