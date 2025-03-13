@@ -35,6 +35,13 @@ def project_prompt_builder():
             choices=["MVC", "MVC-API", "MVCS", "Hexagonal"],
         )
     )
+    prompt_data.append(
+        select_prompt(
+            field="project_server",
+            message="Server Framework",
+            choices=["🧪 Flask", "⚡ FastAPI", "⭕ None"],
+        )
+    )
     prompt_data = prompt(prompt_data)
     try:
         project = ProjectModel(
@@ -42,6 +49,7 @@ def project_prompt_builder():
             path=prompt_data["project_path"],
             description=prompt_data["project_description"],
             architecture=prompt_data["project_architecture"],
+            server=ProjectModel.map_server_choice(prompt_data["project_server"]),
         )
         return project, None
     except ValidationError as e:
