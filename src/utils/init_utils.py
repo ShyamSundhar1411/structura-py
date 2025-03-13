@@ -10,13 +10,17 @@ from src.models.project_model import ProjectModel
 from src.utils.prompt_utils import input_prompt, select_prompt
 
 from .cmd_utils import log_message
-from .file_utils import create_folders, create_initial_broiler_plate
+from .file_utils import (
+    create_files_for_server,
+    create_folders,
+    create_initial_broiler_plate,
+)
 
 
 def project_prompt_builder():
     prompt_data = []
     prompt_data.append(
-        input_prompt(field="project_name", message="Project Name", default="my-project")
+        input_prompt(field="project_name", message="Project Name", default="my_project")
     )
     prompt_data.append(
         input_prompt(field="project_path", message="Project Path", default="./")
@@ -75,5 +79,6 @@ def load_structure_from_architecture(project: ProjectModel):
 
     architecture_structure = ArchitectureModel(**yaml_data)
     print_folder_structure(architecture_structure.folders)
-    create_folders(project.path, architecture_structure.folders)
+    create_folders(project.get_app_path(), architecture_structure.folders)
     create_initial_broiler_plate(project)
+    create_files_for_server(project)

@@ -1,0 +1,24 @@
+name: "flask_server"
+version: "latest"
+source: "flask"
+description: "A basic Flask server structure."
+content:
+  app:
+    __init__.py: |
+      """
+      Flask Application Initialization
+
+      This script sets up the Flask app, configures the secret key,
+      and imports required modules (models, views, and routes).
+      """
+
+      import os
+      from flask import Flask
+
+      SECRET_KEY = os.urandom(32)
+
+      app = Flask(__name__)
+      app.config['SECRET_KEY'] = SECRET_KEY
+
+      # Importing modules (Make sure these files exist in the app directory)
+      from {{APP_NAME}} import models,views,routes
