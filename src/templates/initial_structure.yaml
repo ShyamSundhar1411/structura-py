@@ -1,116 +1,120 @@
-- name: readme.MD
-  description: "A sample README file"
-  directory: "root"
-  content: |
-    # Project Name
+name: "Initial Broiler Plate"
+source: "https://github.com/ShyamSundhar1411/structura-py"
+version: "@latest"
+description: "Initial Broiler Plate files"
+content:
+  root:
+    readme.MD: |
+      # Project Name
 
-    ## Overview
-    This project is generated using structura. It includes essential files to kickstart development.
+      ## Overview
+      This project is generated using structura. It includes essential files to kickstart development.
 
-    ## Usage
-    Run the project using:
+      ## Usage
+      Run the project using:
 
-    ```sh
-    python main.py
-    ```
+      ```sh
+      python run.py
+      ```
 
-    ## Project Structure
-    ```
-    /your-project/
-    ├── app/
-    │   ├── __init__.py
-    ├── .env
-    ├── readme.MD
-    ├── requirements.txt
-    ├── main.py
-    ```
+      ## Project Structure
+      ```
+      /your-project/
+      ├── app/
+      │   ├── __init__.py
+      ├── .env
+      ├── readme.MD
+      ├── requirements.txt
+      ├── run.py
+      ```
 
-    ## Environment Variables
-    The `.env` file contains environment variables:
+      ## Environment Variables
+      The `.env` file contains environment variables:
 
-    ```env
-    DB_HOST=localhost
-    DB_PORT=5432
-    DB_USER=username
-    DB_PASSWORD=password
-    DB_NAME=mydatabase
-    ```
+      ```env
+      DB_HOST=localhost
+      DB_PORT=5432
+      DB_USER=username
+      DB_PASSWORD=password
+      DB_NAME=mydatabase
+      ```
 
-    ## Installation
-    Install dependencies using:
+      ## Installation
+      Install dependencies using:
 
-    ```sh
-    pip install -r requirements.txt
-    ```
+      ```sh
+      pip install -r requirements.txt
+      ```
 
-    ## Contributing
-    Contributions are welcome! Please submit a PR or create an issue.
+      ## Contributing
+      Contributions are welcome! Please submit a PR or create an issue.
 
-- name: .gitignore
-  description: "A .gitignore file for Python projects"
-  directory: "root"
-  content: |
-    ### Python ###
-    __pycache__/
-    *.py[cod]
-    *$py.class
+    .gitignore: |
+      ### Python ###
+      __pycache__/
+      *.py[cod]
+      *$py.class
 
-    # Virtual environments
-    .venv/
-    env/
-    venv/
-    ENV/
-    env.bak/
-    venv.bak/
+      # Virtual environments
+      .venv/
+      env/
+      venv/
+      ENV/
+      env.bak/
+      venv.bak/
 
-    # Environment variables
-    .env
+      # Environment variables
+      .env
 
-    # Logs and databases
-    *.log
-    db.sqlite3
-    db.sqlite3-journal
+      # Logs and databases
+      *.log
+      db.sqlite3
+      db.sqlite3-journal
 
-    # Distribution / packaging
-    build/
-    dist/
-    *.egg-info/
-    .eggs/
-    MANIFEST
+      # Distribution / packaging
+      build/
+      dist/
+      *.egg-info/
+      .eggs/
+      MANIFEST
 
-    # Unit test / coverage reports
-    .tox/
-    .nox/
-    .coverage
-    coverage.xml
-    htmlcov/
-    .pytest_cache/
+      # Unit test / coverage reports
+      .tox/
+      .nox/
+      .coverage
+      coverage.xml
+      htmlcov/
+      .pytest_cache/
 
-    # Jupyter Notebook
-    .ipynb_checkpoints
+      # Jupyter Notebook
+      .ipynb_checkpoints
 
-    # mypy
-    .mypy_cache/
-    .dmypy.json
-    dmypy.json
+      # mypy
+      .mypy_cache/
+      .dmypy.json
+      dmypy.json
 
-    # Pyre type checker
-    .pyre/
+      # Pyre type checker
+      .pyre/
 
-    # pytype static type analyzer
-    .pytype/
+      # pytype static type analyzer
+      .pytype/
 
-    # Cython debug symbols
-    cython_debug/
+      # Cython debug symbols
+      cython_debug/
 
-    # IDE / Editor settings
-    .idea/
-    .vscode/
-    .ropeproject/
-    .spyderproject/
-    .spyproject/
+      # IDE / Editor settings
+      .idea/
+      .vscode/
+      .ropeproject/
+      .spyderproject/
+      .spyproject/
 
-    # PDM / Poetry / Pipenv
-    pdm.lock
-    poetry.lock
-    Pipfile.lock
+      # PDM / Poetry / Pipenv
+      pdm.lock
+      poetry.lock
+      Pipfile.lock
+    main.py: |
+
+      if __name__ == "__main__":
+          print("Hello, World!")
