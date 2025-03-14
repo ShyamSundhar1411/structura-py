@@ -1,0 +1,30 @@
+name: "fastapi_server"
+version: "latest"
+source: "fastapi"
+description: "A basic FastAPI server structure."
+content:
+  app:
+    __init__.py: |
+      """
+      FastAPI Application Initialization
+
+      This script sets up the FastAPI app, configures settings,
+      and imports required modules (models, views, and routes).
+      """
+
+      import os
+      from fastapi import FastAPI
+
+      SECRET_KEY = os.urandom(32)
+
+      app = FastAPI()
+
+      # Importing modules (Make sure these files exist in the app directory)
+      from {{APP_NAME}} import models, views, routes
+  root:
+    main.py: |
+      import uvicorn
+      from {{APP_NAME}} import app
+
+      if __name__ == "__main__":
+          uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
