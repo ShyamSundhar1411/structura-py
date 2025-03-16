@@ -1,0 +1,23 @@
+- name: "pipenv"
+  version: "latest"
+  description: "Default dependencies and setup using Pipenv."
+  pre_install: |
+    pip install pipenv
+  post_install: |
+    pipenv lock
+
+- name: "poetry"
+  version: "latest"
+  description: "Default dependencies and setup using Poetry."
+  pre_install: |
+    pip install poetry
+  post_install: |
+    poetry lock
+
+- name: "venv"
+  version: "latest"
+  description: "Default dependencies and setup using venv."
+  pre_install: |
+    python -m venv .venv
+  post_install: |
+    pip freeze > requirements.txt
