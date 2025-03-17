@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional
 
 from pydantic import BaseModel, Field
 
@@ -16,7 +16,7 @@ class DependencyModel(BaseModel):
     )
     description: str = Field(
         ..., min_length=3, max_length=255, description="Dependency Description"
-    )  # Increased max_length
+    )
     source: str = Field(
         ...,
         min_length=3,
@@ -25,4 +25,23 @@ class DependencyModel(BaseModel):
     )
     content: Dict[str, FileContentModel] = Field(
         ..., description="Dependency content mapping directories to file contents."
+    )
+
+
+class EnvDependencyModel(BaseModel):
+    name: str = Field(..., min_length=3, max_length=50, description="Dependency Name")
+    version: str = Field(
+        ..., min_length=3, max_length=50, description="Dependency Version"
+    )
+    description: str = Field(
+        ..., min_length=3, max_length=255, description="Dependency Description"
+    )
+    pre_install: str = Field(
+        ..., min_length=3, max_length=255, description="Dependency Pre Install Command"
+    )
+    post_install: Optional[str] = Field(
+        None, description="Dependency Post Install Command"
+    )
+    setup_environment: Optional[str] = Field(
+        None, description="Dependency Setup Environment Command"
     )
