@@ -1,10 +1,12 @@
 from setuptools import find_packages, setup
 
+with open("README.md") as f:
+    long_description = f.read()
 setup(
     name="structura-py",
     version="0.1.0",
     description="A CLI for automated folder structure generation and dependency management for Python projects.",
-    long_description=open("README.md").read(),
+    long_description=long_description,
     long_description_content_type="text/markdown",
     author="Shyam Sundhar",
     author_email="clashwithchiefrpjyt@gmail.com",
