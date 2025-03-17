@@ -5,7 +5,7 @@ import time
 import yaml
 from rich.console import Console
 
-from src.models.dependency_model import EnvDependencyModel
+from src.models.dependency_model import DependencyModel, EnvDependencyModel
 from src.models.project_model import ProjectModel
 
 console = Console()
@@ -22,7 +22,7 @@ def log_message(
     Optionally display a loader while performing a task."""
 
     styles = {
-        "INFO": "bold cyan",
+        "INFO": "white",
         "DEBUG": "italic green",
         "WARNING": "bold yellow",
         "ERROR": "bold red",
@@ -61,9 +61,44 @@ def run_git_operations(path: str) -> None:
         log_message(f"⚠️ Error running Git command: {e}", level="ERROR")
 
 
-def run_dependency_installations(project: ProjectModel) -> None:
+def run_dependency_installations(
+    project: ProjectModel, server: DependencyModel
+) -> None:
     try:
-        pass
+        env_manager = project.env_manager.lower()
+        path = project.path
+        if env_manager == "poetry":
+            server_command = f"poetry add {server.source}"
+            log_message(
+                f"Installing {server.name} Server dependencies",
+                show_loader=True,
+                task_name="Poetry",
+                action_func=lambda: run_subprocess(server_command, path),
+            )
+        elif env_manager == "pipenv":
+            server_command = f"pipenv install {server.source}"
+            log_message(
+                f"Installing {server.name} Server dependencies",
+                show_loader=True,
+                task_name="Pipenv",
+                action_func=lambda: run_subprocess(server_command, path),
+            )
+        elif env_manager == "venv":
+            server_command = f"python -m venv .venv && .venv\\Scripts\\activate && pip install {server.source}"
+            log_message(
+                f"Installing {server.name} Server dependencies",
+                show_loader=True,
+                task_name="Venv",
+                action_func=lambda: run_subprocess(server_command, path),
+            )
+        else:
+            server_command = f"pip install {server.source}"
+            log_message(
+                f"Installing {server.name} Server dependencies",
+                show_loader=True,
+                task_name="Pip",
+                action_func=lambda: run_subprocess(server_command, path),
+            )
     except subprocess.CalledProcessError as e:
         log_message(f"⚠️ Error running pip command: {e}", level="ERROR")
 

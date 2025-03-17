@@ -9,10 +9,11 @@ from src.models.architecture_model import ArchitectureModel
 from src.models.project_model import ProjectModel
 from src.utils.prompt_utils import input_prompt, select_prompt
 
-from .cmd_utils import initialize_env_manager, log_message
+from .cmd_utils import initialize_env_manager, log_message, run_dependency_installations
 from .file_utils import (
     create_files_for_server,
     create_folders,
+    create_init_files,
     create_initial_broiler_plate,
 )
 
@@ -88,6 +89,14 @@ def load_structure_from_architecture(project: ProjectModel):
     architecture_structure = ArchitectureModel(**yaml_data)
     print_folder_structure(architecture_structure.folders)
     create_folders(project.get_app_path(), architecture_structure.folders)
+    create_init_files(project.path)
     create_initial_broiler_plate(project)
-    create_files_for_server(project)
+    server_dependencies = create_files_for_server(project)
     initialize_env_manager(project)
+    if not server_dependencies:
+        log_message(
+            "No server dependencies found. Skipping server initializations",
+            level="INFO",
+        )
+        return
+    run_dependency_installations(project, server_dependencies)

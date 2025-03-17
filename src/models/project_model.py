@@ -25,7 +25,7 @@ class ProjectModel(BaseModel):
     architecture: Literal["MVC", "MVC-API", "MVCS", "Hexagonal"] = Field(
         ..., description="Project Architecture"
     )
-    env_manager: Literal["Poetry", "Pipenv", "venv"] = Field(
+    env_manager: Literal["Poetry", "Pipenv", "venv", "None"] = Field(
         ..., description="Environment Manager"
     )
     server: Literal["Flask", "FastAPI", "None"] = Field(

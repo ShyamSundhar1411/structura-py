@@ -1,5 +1,5 @@
 import os
-from typing import Union
+from typing import Optional, Union
 
 import yaml
 
@@ -7,6 +7,26 @@ from src.models.dependency_model import DependencyModel, FileContentModel
 from src.models.project_model import ProjectModel
 
 from .cmd_utils import log_message
+
+
+def create_init_files(base_path: str) -> None:
+    """
+    Traverse all folders inside `base_path` and create an `__init__.py` file in each folder.
+
+    Args:
+        base_path (str): The base path where the folders are located.
+    """
+
+    for root, dirs, _ in os.walk(base_path):
+        for dir_name in dirs:
+            dir_path = os.path.join(root, dir_name)
+            init_file_path = os.path.join(dir_path, "__init__.py")
+            if not os.path.exists(init_file_path):
+                with open(init_file_path, "w") as init_file:
+                    init_file.write(
+                        "# This is an empty __init__.py file for the folder: "
+                        + dir_name
+                    )
 
 
 def create_folders(base_path: str, folder_structure: Union[str, list]):
@@ -66,7 +86,9 @@ def create_initial_broiler_plate(project: ProjectModel):
     create_files_from_dependencies(project, initial_dependency_data)
 
 
-def create_files_for_server(project: ProjectModel):
+def create_files_for_server(project: ProjectModel) -> Optional[DependencyModel]:
+    if project.server == "None":
+        return None
     log_message("Creating server files...")
     file_name = f"{project.server}_server.yaml"
     file_path = os.path.join(os.path.dirname(__file__), "..", "templates", file_name)
@@ -80,3 +102,4 @@ def create_files_for_server(project: ProjectModel):
     }
     server_dependency_data = DependencyModel(**yaml_data)
     create_files_from_dependencies(project, server_dependency_data)
+    return server_dependency_data
