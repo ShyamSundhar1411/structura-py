@@ -1,30 +1,71 @@
 import os
 import subprocess
+import time
 
-import typer
 import yaml
+from rich.console import Console
 
 from src.models.dependency_model import EnvDependencyModel
 from src.models.project_model import ProjectModel
 
+console = Console()
 
-def log_message(message: str) -> None:
-    typer.echo(message)
+
+def log_message(
+    message: str,
+    level: str = "INFO",
+    show_loader: bool = False,
+    task_name: str = "",
+    action_func=None,
+) -> None:
+    """Log a message to the console using rich with different styles based on level.
+    Optionally display a loader while performing a task."""
+
+    styles = {
+        "INFO": "bold cyan",
+        "DEBUG": "italic green",
+        "WARNING": "bold yellow",
+        "ERROR": "bold red",
+        "SUCCESS": "bold green",
+    }
+
+    style = styles.get(level.upper(), "bold cyan")
+
+    console.print(message, style=style)
+
+    if show_loader and action_func:
+        loader(task_name, action_func)
+
+
+def loader(task_name: str, action_func) -> None:
+    """Show a loading spinner while executing a task"""
+    with console.status(f"[bold green]Running {task_name}...[/bold green]"):
+        action_func()
+
+
+def long_running_task() -> None:
+    """Simulate a long-running task"""
+    time.sleep(5)
+
+
+def run_subprocess(command: str, cwd: str) -> None:
+    """Wrapper function to run a subprocess command"""
+    subprocess.run(command, shell=True, cwd=cwd, check=True)
 
 
 def run_git_operations(path: str) -> None:
     try:
-        subprocess.run(["git", "init"], cwd=path, check=True)
+        run_subprocess("git init", path)
         log_message("✅ An empty repository initialized.")
     except subprocess.CalledProcessError as e:
-        log_message(f"⚠️ Error running Git command: {e}")
+        log_message(f"⚠️ Error running Git command: {e}", level="ERROR")
 
 
 def run_dependency_installations(project: ProjectModel) -> None:
     try:
         pass
     except subprocess.CalledProcessError as e:
-        log_message(f"⚠️ Error running pip command: {e}")
+        log_message(f"⚠️ Error running pip command: {e}", level="ERROR")
 
 
 def initialize_env_manager(project: ProjectModel) -> None:
@@ -42,15 +83,34 @@ def initialize_env_manager(project: ProjectModel) -> None:
     if env_data:
         env_model = EnvDependencyModel(**env_data)
         try:
-            log_message("Running pre_install command...")
-            subprocess.run(env_model.pre_install, shell=True, cwd=path, check=True)
-            log_message("Running initial setup command ...")
-            subprocess.run(
-                env_model.setup_environment, shell=True, cwd=path, check=True
+            log_message(
+                "Running pre_install command...",
+                show_loader=True,
+                task_name="Pre-install",
+                action_func=lambda: run_subprocess(env_model.pre_install, path),
             )
-            subprocess.run(env_model.post_install, shell=True, cwd=path, check=True)
-            log_message(f"✅ {env_model.name} initialized.")
+            if env_model.setup_environment:
+                processed_setup_command = env_model.setup_environment.replace(
+                    "{{PROJECT_NAME}}", project.name
+                )
+                log_message(
+                    "Running initial setup command ...",
+                    show_loader=True,
+                    task_name="Setup",
+                    action_func=lambda: run_subprocess(processed_setup_command, path),
+                )
+            if env_model.post_install:
+                log_message(
+                    "Running post_install command...",
+                    show_loader=True,
+                    task_name="Post-install",
+                    action_func=lambda: run_subprocess(env_model.post_install, path),
+                )
+
+            log_message(f"✅ {env_model.name} initialized.", level="SUCCESS")
         except subprocess.CalledProcessError as e:
-            log_message(f"⚠️ Error running {env_data['name']} command: {e}")
+            log_message(
+                f"⚠️ Error running {env_data['name']} command: {e}", level="ERROR"
+            )
     else:
         log_message("No environment manager selected. Skipping initialization.")

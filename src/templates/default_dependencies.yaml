@@ -16,7 +16,7 @@
   post_install: |
     poetry lock
   setup_environment: |
-    poetry init
+    poetry init --no-interaction --name {{PROJECT_NAME}}
 
 - name: "venv"
   version: "latest"

@@ -16,7 +16,7 @@ def create_folders(base_path: str, folder_structure: Union[str, list]):
                 os.makedirs(os.path.join(base_path, folder), exist_ok=True)
                 log_message(f"Created folder: {folder}")
             except Exception as e:
-                log_message(f"⚠️ Error creating folder {folder}: {e}")
+                log_message(f"⚠️ Error creating folder {folder}: {e}", level="ERROR")
     elif isinstance(folder_structure, dict):
         for folder, subfolders in folder_structure.items():
             try:
@@ -24,9 +24,11 @@ def create_folders(base_path: str, folder_structure: Union[str, list]):
                 log_message(f"Created folder: {folder}")
                 create_folders(os.path.join(base_path, folder), subfolders)
             except Exception as e:
-                log_message(f"⚠️ Error creating folder {folder}: {e}")
+                log_message(f"⚠️ Error creating folder {folder}: {e}", level="ERROR")
     else:
-        log_message(f"⚠️ Invalid folder structure format: {folder_structure}")
+        log_message(
+            f"⚠️ Invalid folder structure format: {folder_structure}", level="ERROR"
+        )
 
 
 def create_files_from_dependencies(
@@ -47,7 +49,7 @@ def create_files_from_dependencies(
                     file.write(content)
                 log_message(f"Created file: {file_path}")
             except Exception as e:
-                log_message(f"⚠️ Error creating file {file_path}: {e}")
+                log_message(f"⚠️ Error creating file {file_path}: {e}", level="ERROR")
 
 
 def create_initial_broiler_plate(project: ProjectModel):
