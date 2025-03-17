@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import yaml
 
-from src.models.dependency_model import DependencyModel, FileContentModel
-from src.models.project_model import ProjectModel
+from structura_py.models.dependency_model import DependencyModel, FileContentModel
+from structura_py.models.project_model import ProjectModel
 
 from .cmd_utils import log_message
 

@@ -5,8 +5,8 @@ import time
 import yaml
 from rich.console import Console
 
-from src.models.dependency_model import DependencyModel, EnvDependencyModel
-from src.models.project_model import ProjectModel
+from structura_py.models.dependency_model import DependencyModel, EnvDependencyModel
+from structura_py.models.project_model import ProjectModel
 
 console = Console()
 

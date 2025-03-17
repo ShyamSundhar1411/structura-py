@@ -5,9 +5,9 @@ import yaml
 from inquirer import prompt
 from pydantic import ValidationError
 
-from src.models.architecture_model import ArchitectureModel
-from src.models.project_model import ProjectModel
-from src.utils.prompt_utils import input_prompt, select_prompt
+from structura_py.models.architecture_model import ArchitectureModel
+from structura_py.models.project_model import ProjectModel
+from structura_py.utils.prompt_utils import input_prompt, select_prompt
 
 from .cmd_utils import initialize_env_manager, log_message, run_dependency_installations
 from .file_utils import (

@@ -2,8 +2,8 @@ import os
 
 import typer
 
-from src.utils.cmd_utils import log_message, run_git_operations
-from src.utils.init_utils import (
+from structura_py.utils.cmd_utils import log_message, run_git_operations
+from structura_py.utils.init_utils import (
     load_structure_from_architecture,
     project_prompt_builder,
 )

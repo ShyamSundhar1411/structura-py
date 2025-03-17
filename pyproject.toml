@@ -25,16 +25,17 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.flake8]
 max-line-length = 88
-extend-ignore = ["E203", "W503","E501"]
+extend-ignore = ["E203", "W503","E501","SIM115"]
 exclude = ["__init__.py"]
-
+[tool.poetry.scripts]
+structura-py = "structura_py.cli:structura"
 [tool.isort]
 profile = "black"
 multi_line_output = 3
 line_length = 88
 default_section = "THIRDPARTY"
 known_first_party = []
-known_third_party = ["inquirer", "pydantic", "rich", "typer", "yaml"]
+known_third_party = ["inquirer", "pydantic", "rich", "setuptools", "typer", "yaml"]
 
 [tool.mypy]
 strict = true
