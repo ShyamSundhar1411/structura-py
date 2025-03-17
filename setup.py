@@ -24,7 +24,7 @@ setup(
     python_requires=">=3.9",
     entry_points={
         "console_scripts": [
-            "structura-py=structura_py.cli:structura",
+            "structura=structura_py.cli:structura",
         ]
     },
 )
