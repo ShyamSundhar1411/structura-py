@@ -22,3 +22,9 @@ content:
 
       # Importing modules (Make sure these files exist in the app directory)
       from {{APP_NAME}} import models,views,routes
+  root:
+    main.py: |
+      from {{APP_NAME}} import app
+
+      if __name__ == '__main__':
+          app.run(debug=True)
