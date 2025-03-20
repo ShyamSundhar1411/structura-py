@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "structura-py"
-version = "0.1.0"
-description = ""
+version = "0.1.1"
+description = "A CLI for automated folder structure generation and dependency management for Python projects."
 authors = ["ShyamSundhar1411 <clashwithchiefrpjyt@gmail.com>"]
 readme = "README.md"
 

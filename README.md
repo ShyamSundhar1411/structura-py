@@ -1,4 +1,4 @@
-# Structura 🚀
+# Structura
 **Automated Folder Structure & Dependency Management for Python Projects**
 
 ## Overview
@@ -35,7 +35,7 @@ structura-py init
 ## Contributing
 1. Fork the repo
 2. Create a feature branch
-3. Open a PR 🚀
+3. Open a PR
 
 ## License
 MIT License
