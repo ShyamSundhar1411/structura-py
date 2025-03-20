@@ -5,11 +5,11 @@
 Structura is a project scaffolding tool that **automatically generates folder structures** (MVC, Hexagonal, MVCS) and **installs dependencies** with their required configurations for Python projects using the **Flask** or **FastAPI** framework.
 
 ## Features
-✅ Supports multiple architectures: **MVC, MVCS, Hexagonal, etc.**
-✅ Auto-generates **folders & boilerplate files**
-✅ Installs dependencies
-✅ Configurable via **YAML files**
-✅ Flexible & extensible
+- ✅ Supports multiple architectures: **MVC, MVCS, Hexagonal, etc.**
+- ✅ Auto-generates **folders & boilerplate files**
+- ✅ Installs dependencies
+- ✅ Configurable via **YAML files**
+- ✅ Flexible & extensible
 
 ## Installation
 ```bash
