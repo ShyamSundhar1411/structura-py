@@ -1,0 +1,38 @@
+name: Lint Check
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Install Dependencies
+        run: poetry install
+
+      - name: Install Linters
+        run: |
+          poetry add --dev flake8 ruff
+
+      - name: Run Flake8 Linter
+        run: poetry run flake8 .
+
+      - name: Run Ruff Linter
+        run: poetry run ruff check .
