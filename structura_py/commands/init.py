@@ -19,5 +19,5 @@ def init():
         log_message(error)
         os._exit(1)
     load_structure_from_architecture(project)
-    log_message("✅ Project initialized")
+    log_message("✅ Project initialized Successfully")
     run_git_operations(project.path)
