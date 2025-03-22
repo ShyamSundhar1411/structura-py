@@ -5,13 +5,14 @@ on:
     workflows: ["CI Build & Test"]
     types:
       - completed
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   lint:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -23,15 +24,25 @@ jobs:
         with:
           python-version: "3.11"
 
+
+      - name: Cache Poetry Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+
       - name: Install Poetry
         run: pipx install poetry
 
       - name: Install Dependencies
         run: poetry install
 
+      # ✅ Install Linters without modifying `pyproject.toml`
       - name: Install Linters
         run: |
-          poetry add --dev flake8 ruff
+          poetry run pip install flake8 ruff
 
       - name: Run Flake8 Linter
         run: poetry run flake8 .
