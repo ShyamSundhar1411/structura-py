@@ -11,9 +11,9 @@ from structura_py.utils.prompt_utils import input_prompt, select_prompt
 
 from .cmd_utils import initialize_env_manager, log_message, run_dependency_installations
 from .file_utils import (
+    create_file,
     create_files_for_server,
     create_folders,
-    create_init_files,
     create_initial_broiler_plate,
 )
 
@@ -70,14 +70,26 @@ def project_prompt_builder():
 
 
 def print_folder_structure(folder_structure: Union[Dict, List], indent: int = 0):
-    """Recursively prints the folder structure from an ArchitectureModel."""
     if isinstance(folder_structure, list):
-        for folder in folder_structure:
-            log_message("  " * indent + f"📂 {folder}")
+        for item in folder_structure:
+            if isinstance(item, str):
+                continue
+            elif isinstance(item, dict):
+                print_folder_structure(item, indent)
+
     elif isinstance(folder_structure, dict):
         for folder, subfolders in folder_structure.items():
             log_message("  " * indent + f"📂 {folder}")
-            print_folder_structure(subfolders, indent + 1)
+
+            if isinstance(subfolders, list):
+                for entry in subfolders:
+                    if isinstance(entry, str):
+                        continue
+                    elif isinstance(entry, dict):
+                        print_folder_structure(entry, indent + 1)
+
+            elif isinstance(subfolders, dict):
+                print_folder_structure(subfolders, indent + 1)
 
 
 def load_structure_from_architecture(project: ProjectModel):
@@ -87,10 +99,9 @@ def load_structure_from_architecture(project: ProjectModel):
         yaml_data = yaml.safe_load(file)
 
     architecture_structure = ArchitectureModel(**yaml_data)
-    print_folder_structure(architecture_structure.folders)
     create_folders(project.get_app_path(), architecture_structure.folders)
-    create_init_files(project.path)
     create_initial_broiler_plate(project)
+    create_file(project.path, "README.md", architecture_structure.readme)
     server_dependencies = create_files_for_server(project)
     initialize_env_manager(project)
     if not server_dependencies:

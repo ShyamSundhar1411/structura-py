@@ -1,4 +1,4 @@
-from typing import Dict, List, Union
+from typing import Any, Dict, List, Union
 
 from pydantic import BaseModel, Field
 
@@ -8,6 +8,7 @@ class ArchitectureModel(BaseModel):
     description: str = Field(
         ..., min_length=3, max_length=10000, description="Architecture Description"
     )
-    folders: Union[Dict[str, Dict[str, List[str]]], List[str]] = Field(
+    readme: str = Field(..., description="Architecture Readme")
+    folders: Union[Dict[str, Any], List[Union[str, Dict[str, Any]]]] = Field(
         ..., description="Architecture Folders"
     )

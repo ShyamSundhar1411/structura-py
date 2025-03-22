@@ -9,40 +9,27 @@ from structura_py.models.project_model import ProjectModel
 from .cmd_utils import log_message
 
 
-def create_init_files(base_path: str) -> None:
-    """
-    Traverse all folders inside `base_path` and create an `__init__.py` file in each folder.
-
-    Args:
-        base_path (str): The base path where the folders are located.
-    """
-
-    for root, dirs, _ in os.walk(base_path):
-        for dir_name in dirs:
-            dir_path = os.path.join(root, dir_name)
-            init_file_path = os.path.join(dir_path, "__init__.py")
-            if not os.path.exists(init_file_path):
-                with open(init_file_path, "w") as init_file:
-                    init_file.write(
-                        "# This is an empty __init__.py file for the folder: "
-                        + dir_name
-                    )
-
-
-def create_folders(base_path: str, folder_structure: Union[str, list]):
+def create_folders(base_path: str, folder_structure: Union[str, list], indent: int = 0):
     if isinstance(folder_structure, list):
-        for folder in folder_structure:
-            try:
-                os.makedirs(os.path.join(base_path, folder), exist_ok=True)
-                log_message(f"Created folder: {folder}")
-            except Exception as e:
-                log_message(f"⚠️ Error creating folder {folder}: {e}", level="ERROR")
+        for item in folder_structure:
+            if isinstance(item, str):
+                file_path = os.path.join(base_path, item)
+                try:
+                    with open(file_path, "w") as file:
+                        file.write("")
+                    log_message("  " * indent + f"📄 Created file: {file_path}")
+                except Exception as e:
+                    log_message(
+                        f"⚠️ Error creating file {file_path}: {e}", level="ERROR"
+                    )
+            elif isinstance(item, dict):
+                create_folders(base_path, item, indent + 1)
     elif isinstance(folder_structure, dict):
         for folder, subfolders in folder_structure.items():
             try:
                 os.makedirs(os.path.join(base_path, folder), exist_ok=True)
-                log_message(f"Created folder: {folder}")
-                create_folders(os.path.join(base_path, folder), subfolders)
+                log_message("  " * indent + f"📂 Created folder: {folder}")
+                create_folders(os.path.join(base_path, folder), subfolders, indent + 1)
             except Exception as e:
                 log_message(f"⚠️ Error creating folder {folder}: {e}", level="ERROR")
     else:
@@ -67,13 +54,13 @@ def create_files_from_dependencies(
             try:
                 with open(file_path, "w") as file:
                     file.write(content)
-                log_message(f"Created file: {file_path}")
+                log_message(f"📂 Created file: {file_path}")
             except Exception as e:
                 log_message(f"⚠️ Error creating file {file_path}: {e}", level="ERROR")
 
 
 def create_initial_broiler_plate(project: ProjectModel):
-    log_message("Creating initial boilerplate...")
+    log_message("Creating initial boilerplate...", show_loader=True)
     file_name = "initial_structure.yaml"
     file_path = os.path.join(os.path.dirname(__file__), "..", "templates", file_name)
     with open(file_path) as file:
@@ -89,7 +76,7 @@ def create_initial_broiler_plate(project: ProjectModel):
 def create_files_for_server(project: ProjectModel) -> Optional[DependencyModel]:
     if project.server == "None":
         return None
-    log_message("Creating server files...")
+    log_message("Creating server files...", show_loader=True)
     file_name = f"{project.server}_server.yaml"
     file_path = os.path.join(os.path.dirname(__file__), "..", "templates", file_name)
     with open(file_path) as file:
@@ -103,3 +90,13 @@ def create_files_for_server(project: ProjectModel) -> Optional[DependencyModel]:
     server_dependency_data = DependencyModel(**yaml_data)
     create_files_from_dependencies(project, server_dependency_data)
     return server_dependency_data
+
+
+def create_file(base_path: str, file_name: str, content: str):
+    try:
+        file_path = os.path.join(base_path, file_name)
+        with open(file_path, "w") as file:
+            file.write(content)
+        log_message(f"📄 Created file: {file_path}")
+    except Exception as e:
+        log_message(f"⚠️ Error creating file {file_name}: {e}", level="ERROR")

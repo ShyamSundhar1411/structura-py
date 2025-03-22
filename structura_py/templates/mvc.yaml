@@ -1,8 +1,25 @@
 name: MVC
 description: "Model-View-Controller architecture is commonly used for web applications with a clear separation of concerns. The model manages the data, the view is responsible for rendering the user interface, and the controller handles user inputs and updates the model and view accordingly."
+
+readme: |
+  # MVC Architecture
+
+  MVC architecture is widely used in web applications to separate concerns and improve maintainability:
+
+  - The **controllers** handle user inputs and trigger changes in the model or view.
+  - The **models** manage the data and represent the business logic.
+  - The **templates** render the HTML output to display the data.
+  - The **routes** define the API endpoints and routing logic.
+  - The **tests** contain unit and integration tests.
+
 folders:
-  - controllers
-  - models
-  - templates
-  - routes
-  - tests
+  - controllers:
+      - __init__.py
+  - models:
+      - __init__.py
+  - templates:
+      - index.html
+  - routes:
+      - __init__.py
+  - tests:
+      - __init__.py
