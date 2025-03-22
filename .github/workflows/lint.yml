@@ -1,15 +1,17 @@
 name: Lint Check
 
 on:
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize, reopened]
+  workflow_run:
+    workflows: ["CI Build & Test"]
+    types:
+      - completed
 
 permissions:
   contents: read
 
 jobs:
   lint:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
