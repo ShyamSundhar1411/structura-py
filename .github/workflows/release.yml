@@ -30,7 +30,7 @@ jobs:
 
       - name: Configure PyPI Token
         run: |
-          poetry config pypi-token.pypi ${{ secrets.PYPI_API_TOKEN }}
+          poetry config pypi-token.pypi "${{ secrets.PYPI_API_TOKEN }}"
 
       - name: Build and Publish
         run: |
