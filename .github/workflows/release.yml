@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - "v*.*.*"    # ✅ Trigger only on new version tags
+      - "v*.*.*"
 
 permissions:
   contents: write

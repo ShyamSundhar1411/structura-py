@@ -39,13 +39,9 @@ jobs:
       - name: Install Dependencies
         run: poetry install
 
-      # ✅ Install Linters without modifying `pyproject.toml`
       - name: Install Linters
         run: |
-          poetry run pip install flake8 ruff
-
-      - name: Run Flake8 Linter
-        run: poetry run flake8 .
+          poetry run pip install ruff
 
       - name: Run Ruff Linter
         run: poetry run ruff check .
