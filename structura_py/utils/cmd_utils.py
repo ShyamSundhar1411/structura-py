@@ -67,8 +67,9 @@ def run_dependency_installations(
     try:
         env_manager = project.env_manager.lower()
         path = project.path
+        sources = " ".join(server.source)
         if env_manager == "poetry":
-            server_command = f"poetry add {server.source}"
+            server_command = f"poetry add {sources}"
             log_message(
                 f"Installing {server.name} Server dependencies",
                 show_loader=True,
@@ -76,7 +77,7 @@ def run_dependency_installations(
                 action_func=lambda: run_subprocess(server_command, path),
             )
         elif env_manager == "pipenv":
-            server_command = f"pipenv install {server.source}"
+            server_command = f"pipenv install {sources}"
             log_message(
                 f"Installing {server.name} Server dependencies",
                 show_loader=True,
@@ -84,7 +85,7 @@ def run_dependency_installations(
                 action_func=lambda: run_subprocess(server_command, path),
             )
         elif env_manager == "venv":
-            server_command = f"python -m venv .venv && .venv\\Scripts\\activate && pip install {server.source}"
+            server_command = f"python -m venv .venv && .venv\\Scripts\\activate && pip install {sources}"
             log_message(
                 f"Installing {server.name} Server dependencies",
                 show_loader=True,

@@ -97,7 +97,6 @@ def load_structure_from_architecture(project: ProjectModel):
     file_path = os.path.join(os.path.dirname(__file__), "..", "templates", file_name)
     with open(file_path) as file:
         yaml_data = yaml.safe_load(file)
-
     architecture_structure = ArchitectureModel(**yaml_data)
     create_folders(project.get_app_path(), architecture_structure.folders)
     create_initial_broiler_plate(project)

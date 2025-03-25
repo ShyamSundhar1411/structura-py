@@ -1,6 +1,7 @@
 name: "flask_server"
 version: "latest"
-source: "flask"
+source:
+  - "flask"
 description: "A basic Flask server structure."
 content:
   app:
@@ -23,7 +24,7 @@ content:
       # Importing modules (Make sure these files exist in the app directory)
       from {{APP_NAME}} import models,views,routes
   root:
-    main.py: |
+    app.py: |
       from {{APP_NAME}} import app
 
       if __name__ == '__main__':

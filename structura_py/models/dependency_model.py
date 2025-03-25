@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -17,10 +17,8 @@ class DependencyModel(BaseModel):
     description: str = Field(
         ..., min_length=3, max_length=255, description="Dependency Description"
     )
-    source: str = Field(
+    source: List[str] = Field(
         ...,
-        min_length=3,
-        max_length=255,
         description="Dependency Source (e.g., URL or repository)",
     )
     content: Dict[str, FileContentModel] = Field(

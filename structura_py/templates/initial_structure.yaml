@@ -1,5 +1,6 @@
 name: "Initial Broiler Plate"
-source: "https://github.com/ShyamSundhar1411/structura-py"
+source:
+  - "https://github.com/ShyamSundhar1411/structura-py"
 version: "@latest"
 description: "Initial Broiler Plate files"
 content:
@@ -114,7 +115,7 @@ content:
       pdm.lock
       poetry.lock
       Pipfile.lock
-    main.py: |
+    app.py: |
 
       if __name__ == "__main__":
           print("Hello, World!")

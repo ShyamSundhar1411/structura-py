@@ -1,6 +1,8 @@
 name: "fastapi_server"
 version: "latest"
-source: "fastapi"
+source:
+  - "fastapi"
+  - "uvicorn"
 description: "A basic FastAPI server structure."
 content:
   app:
@@ -19,10 +21,8 @@ content:
 
       app = FastAPI()
 
-      # Importing modules (Make sure these files exist in the app directory)
-      from {{APP_NAME}} import models, views, routes
   root:
-    main.py: |
+    app.py: |
       import uvicorn
       from {{APP_NAME}} import app
 
