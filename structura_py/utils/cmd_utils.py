@@ -93,7 +93,7 @@ def run_dependency_installations(
                 action_func=lambda: run_subprocess(server_command, path),
             )
         else:
-            server_command = f"pip install {server.source}"
+            server_command = f"pip install {sources}"
             log_message(
                 f"Installing {server.name} Server dependencies",
                 show_loader=True,
