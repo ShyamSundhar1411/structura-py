@@ -205,14 +205,14 @@ license = ["ukkonen"]
 
 [[package]]
 name = "inquirer"
-version = "3.4.0"
+version = "3.4.1"
 description = "Collection of common interactive command line user interfaces, based on Inquirer.js"
 optional = false
-python-versions = ">=3.8.1"
+python-versions = ">=3.9.2"
 groups = ["main"]
 files = [
-    {file = "inquirer-3.4.0-py3-none-any.whl", hash = "sha256:bb0ec93c833e4ce7b51b98b1644b0a4d2bb39755c39787f6a504e4fee7a11b60"},
-    {file = "inquirer-3.4.0.tar.gz", hash = "sha256:8edc99c076386ee2d2204e5e3653c2488244e82cb197b2d498b3c1b5ffb25d0b"},
+    {file = "inquirer-3.4.1-py3-none-any.whl", hash = "sha256:717bf146d547b595d2495e7285fd55545cff85e5ce01decc7487d2ec6a605412"},
+    {file = "inquirer-3.4.1.tar.gz", hash = "sha256:60d169fddffe297e2f8ad54ab33698249ccfc3fc377dafb1e5cf01a0efb9cbe5"},
 ]
 
 [package.dependencies]
@@ -910,4 +910,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "d77acfa27dd2b65b798daecc9ba4f3df34063ce423da54b3cd33e75eaceeb8b2"
+content-hash = "ac184413eb1b2e3935dc80f63fef43d681a8a9388ca6b9f75f865c1e6848b860"
