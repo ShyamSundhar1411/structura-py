@@ -13,6 +13,7 @@ def create_folders(base_path: str, folder_structure: Union[str, list], indent: i
     if isinstance(folder_structure, list):
         for item in folder_structure:
             if isinstance(item, str):
+                os.makedirs(base_path, exist_ok=True)
                 file_path = os.path.join(base_path, item)
                 try:
                     with open(file_path, "w") as file:
@@ -42,6 +43,7 @@ def create_files_from_dependencies(
     project: ProjectModel, dependencies: DependencyModel
 ):
     app_path = project.get_app_path()
+    os.makedirs(app_path, exist_ok=True)
     for folder, file_content in dependencies.content.items():
         if folder == "root":
             folder_path = project.path

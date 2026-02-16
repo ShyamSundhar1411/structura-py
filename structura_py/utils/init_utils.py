@@ -37,7 +37,7 @@ def project_prompt_builder():
         select_prompt(
             field="project_architecture",
             message="Project Architecture",
-            choices=["MVC", "MVC-API", "MVCS", "Hexagonal"],
+            choices=["MVC", "MVC-API", "MVCS", "Hexagonal", "None"],
         )
     )
     prompt_data.append(
@@ -93,15 +93,29 @@ def print_folder_structure(folder_structure: Union[Dict, List], indent: int = 0)
 
 
 def load_structure_from_architecture(project: ProjectModel):
-    file_name = f"{project.architecture.lower()}.yaml"
+    file_name = (
+        f"{project.architecture.lower()}.yaml"
+        if project.architecture != "None"
+        else "initial_structure.yaml"
+    )
     file_path = os.path.join(os.path.dirname(__file__), "..", "templates", file_name)
     with open(file_path) as file:
         yaml_data = yaml.safe_load(file)
+    if project.architecture == "None":
+        yaml_data["name"] = "No Architecture"
+        yaml_data["description"] = "No Architecture"
+        yaml_data["folders"] = []
+        yaml_data[
+            "readme"
+        ] = "# No Architecture\n\nThis project has no architecture selected.\n"
     architecture_structure = ArchitectureModel(**yaml_data)
-    create_folders(project.get_app_path(), architecture_structure.folders)
     create_initial_broiler_plate(project)
+    create_folders(project.get_app_path(), architecture_structure.folders)
+
     create_file(project.path, "README.md", architecture_structure.readme)
+
     server_dependencies = create_files_for_server(project)
+
     initialize_env_manager(project)
     if not server_dependencies:
         log_message(

@@ -22,7 +22,7 @@ class ProjectModel(BaseModel):
     description: str = Field(
         ..., min_length=3, max_length=50, description="Project Description"
     )
-    architecture: Literal["MVC", "MVC-API", "MVCS", "Hexagonal"] = Field(
+    architecture: Literal["MVC", "MVC-API", "MVCS", "Hexagonal", "None"] = Field(
         ..., description="Project Architecture"
     )
     env_manager: Literal["uv", "Poetry", "Pipenv", "venv", "None"] = Field(
