@@ -5,9 +5,9 @@ from typing import Literal
 from pydantic import BaseModel, Field, field_validator
 
 SERVER_CHOICES = {
-    "🧪 Flask": "Flask",
-    "⚡ FastAPI": "FastAPI",
-    "⭕ None": "None",
+    "Flask": "Flask",
+    "FastAPI": "FastAPI",
+    "None": "None",
 }
 
 
@@ -25,7 +25,7 @@ class ProjectModel(BaseModel):
     architecture: Literal["MVC", "MVC-API", "MVCS", "Hexagonal"] = Field(
         ..., description="Project Architecture"
     )
-    env_manager: Literal["Poetry", "Pipenv", "venv", "None"] = Field(
+    env_manager: Literal["uv", "Poetry", "Pipenv", "venv", "None"] = Field(
         ..., description="Environment Manager"
     )
     server: Literal["Flask", "FastAPI", "None"] = Field(

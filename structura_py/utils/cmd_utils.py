@@ -92,6 +92,15 @@ def run_dependency_installations(
                 task_name="Venv",
                 action_func=lambda: run_subprocess(server_command, path),
             )
+
+        elif env_manager == "uv":
+            server_command = f"uv add {sources} && .venv\\Scripts\\activate"
+            log_message(
+                f"Installing {server.name} Server dependencies",
+                show_loader=True,
+                task_name="Uv",
+                action_func=lambda: run_subprocess(server_command, path),
+            )
         else:
             server_command = f"pip install {sources}"
             log_message(

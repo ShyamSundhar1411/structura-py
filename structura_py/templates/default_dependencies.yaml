@@ -25,3 +25,11 @@
     python -m venv .venv
   post_install: Null
   setup_environment: Null
+
+- name: "uv"
+  version: "latest"
+  description: "Default dependencies and setup using uv."
+  pre_install: |
+    pip install uv
+  post_install: Null
+  setup_environment: uv init --no-workspace

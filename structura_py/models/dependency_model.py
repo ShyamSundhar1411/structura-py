@@ -27,7 +27,7 @@ class DependencyModel(BaseModel):
 
 
 class EnvDependencyModel(BaseModel):
-    name: str = Field(..., min_length=3, max_length=50, description="Dependency Name")
+    name: str = Field(..., min_length=2, max_length=50, description="Dependency Name")
     version: str = Field(
         ..., min_length=3, max_length=50, description="Dependency Version"
     )

@@ -4,7 +4,7 @@ with open("README.md") as f:
     long_description = f.read()
 setup(
     name="structura-py",
-    version="0.1.0",
+    version="1.1",
     description="A CLI for automated folder structure generation and dependency management for Python projects.",
     long_description=long_description,
     long_description_content_type="text/markdown",

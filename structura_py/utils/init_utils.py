@@ -44,14 +44,14 @@ def project_prompt_builder():
         select_prompt(
             field="project_server",
             message="Server Framework",
-            choices=["🧪 Flask", "⚡ FastAPI", "⭕ None"],
+            choices=["Flask", "FastAPI", "None"],
         )
     )
     prompt_data.append(
         select_prompt(
             field="project_env_manager",
             message="Environment Manager",
-            choices=["Poetry", "Pipenv", "venv", "None"],
+            choices=["uv", "Poetry", "Pipenv", "venv", "None"],
         )
     )
     prompt_data = prompt(prompt_data)
