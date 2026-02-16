@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "structura-py"
-version = "1.2.0"
+version = "1.1.0"
 description = "Structura is a CLI tool that automates folder structure generation and dependency management for Python projects. It supports multiple architectures (MVC, MVCS, Hexagonal) and frameworks (Flask, FastAPI), using YAML configuration for flexibility."
 authors = ["ShyamSundhar1411 <clashwithchiefrpjyt@gmail.com>"]
 readme = "README.md"
