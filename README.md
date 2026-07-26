@@ -1,111 +1,97 @@
+<div align="center">
 
-#  **Structura**
-**Automated Folder Structure & Dependency Management for Python Projects**
+# Structura (Python)
 
----
+**Scaffold production-ready Python backends in one command.**
 
-## **Overview**
-Structura is a powerful **project scaffolding tool** designed to automate the creation of consistent and standardized folder structures for **Python projects**. It supports multiple frameworks and architectures, making it easy to initialize production-ready projects with just a few commands.
+[![PyPI](https://img.shields.io/pypi/v/structura-py.svg)](https://pypi.org/project/structura-py/)
+[![Downloads](https://static.pepy.tech/badge/structura-py)](https://pepy.tech/project/structura-py)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Whether you're building a **Flask** or **FastAPI** project, Structura handles:
-- **Folder structuring**
-- **Dependency installation**
-- **Environment setup**
-- **Custom configurations** via YAML
+</div>
 
 ---
 
-## **Features**
-- **Multiple Architectures**: MVC, MVCS, Hexagonal, and more
-- **Auto-Generates Folders & Boilerplate Files**
-- **Dependency Management**: Supports `venv`, `pipenv`, and `poetry`
-- **YAML Configuration** for flexible project initialization
-- **Extensible**: Easily customize folder structures and dependencies
-- **Cross-Platform Compatibility**: Works on Windows, Linux, and macOS
+## Why
 
----
+Starting a new backend means the same half hour every time: create folders, decide where routes
+and services live, set up a virtual environment, install the same dependencies, write an `.env`
+loader. It's mechanical work that's easy to do inconsistently.
 
-##  **Installation**
+Structura does it in one command, with the architecture pattern you choose, so every project you
+start looks the same and is laid out the way it should be.
 
-You can install Structura using `pip`:
+> Also available for Go — see [structura-go](https://github.com/ShyamSundhar1411/structura-go).
+
+## Features
+
+- **Four architecture patterns** — MVC, MVC-API, MVCS, and Hexagonal
+- **Framework support** — Flask and FastAPI, with boilerplate wired up
+- **Dependency management** — works with `venv`, `pipenv`, or `poetry`
+- **YAML-driven templates** — every structure and dependency set is a YAML file you can edit or extend
+- **Boilerplate generation** — creates config and environment files alongside the folder tree
+- **Cross-platform** — Windows, macOS, and Linux
+
+## Install
+
 ```bash
 pip install structura-py
 ```
 
+## Usage
 
----
+**Create a new project**
 
-## **Usage**
-
-###  **Initialize a New Project**
-Create a new Python project with the desired architecture:
 ```bash
 structura init myproject --framework flask
 ```
-For FastAPI:
+
 ```bash
 structura init myproject --framework fastapi
 ```
 
-### **Generate Project Files**
-If you already have a project, you can simply generate the structure:
+**Choose an architecture**
+
 ```bash
-structura init
+structura init myproject --framework fastapi --architecture hexagonal
 ```
 
----
+Supported values: `mvc`, `mvc-api`, `mvcs`, `hexagonal`.
 
-## **Folder Structure Example**
+Run `structura --help` to see all available flags.
 
-When you run `structura-py init`, it generates the following folder structure based on the chosen architecture (e.g., MVC):
+## Architecture patterns
 
-```plaintext
-/myproject
-├── app
-│   ├── __init__.py
-│   ├── models
-│   │   └── user.py
-│   ├── services
-│   │   └── user_service.py
-│   ├── controllers
-│   │   └── user_controller.py
-│   ├── routes
-│   │   └── user_routes.py
-├── config
-│   ├── settings.py
-│   └── config.yaml
-├── tests
-│   ├── test_user.py
-├── requirements.txt
-├── .env
-├── README.md
-└── main.py
+| Pattern | Best for |
+|---|---|
+| **MVC** | Conventional web apps with server-rendered views |
+| **MVC-API** | REST APIs that don't need a view layer |
+| **MVCS** | Apps where business logic deserves its own service layer |
+| **Hexagonal** | Domain-centric designs that isolate business rules from adapters and I/O |
+
+## Customising templates
+
+Structures and dependency sets live as YAML under `structura_py/templates/`. To change what gets
+generated, edit the relevant template or add your own — no code changes needed.
+
 ```
-**Architecture Variations:**
-- `MVC`: `models`, `services`, `controllers`, `routes`
-- `MVCS`: Adds `services` layer for business logic separation
-- `Hexagonal`: Adds `adapters` and `ports` folders for dependency inversion
+structura_py/
+├── cli.py                  # CLI entry point
+├── commands/               # Command implementations
+├── models/                 # Project, architecture, and dependency models
+├── utils/                  # File, prompt, and command helpers
+└── templates/              # YAML architecture + dependency definitions
+```
 
----
+## Built with
 
+Python · [Poetry](https://python-poetry.org/) · YAML-based templating · pre-commit
 
-## **Contributing**
-We welcome contributions!
-To contribute:
-1. Fork the repository
-2. Create a new feature branch
-3. Commit your changes
-4. Open a Pull Request (PR)
+## Contributing
 
----
+Issues and pull requests welcome. Adding a new architecture or framework is usually just a new
+YAML template — a good first contribution.
 
-## **License**
-Structura is licensed under the **MIT License**.
-Feel free to use, modify, and distribute it.
+## License
 
----
-
-##  **Feedback & Issues**
-If you encounter any issues or have suggestions, feel free to open an issue on [GitHub](https://github.com/ShyamSundhar1411/structura-py/issues).
-
----
+MIT — see [LICENSE](LICENSE).
