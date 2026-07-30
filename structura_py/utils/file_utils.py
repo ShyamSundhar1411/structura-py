@@ -79,7 +79,7 @@ def create_files_for_server(project: ProjectModel) -> Optional[DependencyModel]:
     if project.server == "None":
         return None
     log_message("Creating server files...", show_loader=True)
-    file_name = f"{project.server}_server.yaml"
+    file_name = f"{project.server.lower()}_server.yaml"
     file_path = os.path.join(os.path.dirname(__file__), "..", "templates", file_name)
     with open(file_path) as file:
         yaml_content = file.read()

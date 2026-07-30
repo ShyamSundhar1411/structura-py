@@ -10,6 +10,7 @@ from structura_py.models.project_model import ProjectModel
 from structura_py.utils.prompt_utils import input_prompt, select_prompt
 
 from .cmd_utils import initialize_env_manager, log_message, run_dependency_installations
+from .constants import EnvManager, ProjectType, ServerType
 from .file_utils import (
     create_file,
     create_files_for_server,
@@ -18,14 +19,20 @@ from .file_utils import (
 )
 
 
-def project_prompt_builder():
+def project_prompt_builder(
+    name=None, path=None, framework=None, env_manager=None, project_type=None
+):
     prompt_data = []
-    prompt_data.append(
-        input_prompt(field="project_name", message="Project Name", default="my_project")
-    )
-    prompt_data.append(
-        input_prompt(field="project_path", message="Project Path", default="./")
-    )
+    if not name:
+        prompt_data.append(
+            input_prompt(
+                field="project_name", message="Project Name", default="my_project"
+            )
+        )
+    if not path:
+        prompt_data.append(
+            input_prompt(field="project_path", message="Project Path", default="./")
+        )
     prompt_data.append(
         input_prompt(
             field="project_description",
@@ -33,36 +40,40 @@ def project_prompt_builder():
             default="A new python project",
         )
     )
-    prompt_data.append(
-        select_prompt(
-            field="project_architecture",
-            message="Project Architecture",
-            choices=["MVC", "MVC-API", "MVCS", "Hexagonal", "None"],
+    if not project_type:
+        prompt_data.append(
+            select_prompt(
+                field="project_architecture",
+                message="Project Architecture",
+                choices=ProjectType.choices(),
+            )
         )
-    )
-    prompt_data.append(
-        select_prompt(
-            field="project_server",
-            message="Server Framework",
-            choices=["Flask", "FastAPI", "None"],
+    if not framework:
+        prompt_data.append(
+            select_prompt(
+                field="project_server",
+                message="Server Framework",
+                choices=ServerType.choices(),
+            )
         )
-    )
-    prompt_data.append(
-        select_prompt(
-            field="project_env_manager",
-            message="Environment Manager",
-            choices=["uv", "Poetry", "Pipenv", "venv", "None"],
+    if not env_manager:
+        prompt_data.append(
+            select_prompt(
+                field="project_env_manager",
+                message="Environment Manager",
+                choices=EnvManager.choices(),
+            )
         )
-    )
     prompt_data = prompt(prompt_data)
     try:
         project = ProjectModel(
-            name=prompt_data["project_name"],
-            path=prompt_data["project_path"],
+            name=name or prompt_data["project_name"],
+            path=path or prompt_data["project_path"],
             description=prompt_data["project_description"],
-            architecture=prompt_data["project_architecture"],
-            server=ProjectModel.map_server_choice(prompt_data["project_server"]),
-            env_manager=prompt_data["project_env_manager"],
+            architecture=project_type or prompt_data["project_architecture"],
+            server=framework
+            or ProjectModel.map_server_choice(prompt_data["project_server"]),
+            env_manager=env_manager or prompt_data["project_env_manager"],
         )
         return project, None
     except ValidationError as e:

@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "structura-py"
-version = "1.1.1"
+version = "1.1.2"
 description = "Structura is a CLI tool that automates folder structure generation and dependency management for Python projects. It supports multiple architectures (MVC, MVCS, Hexagonal) and frameworks (Flask, FastAPI), using YAML configuration for flexibility."
 authors = ["ShyamSundhar1411 <clashwithchiefrpjyt@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 typer = "^0.21.1"
 inquirerpy = "^0.3.4"
 flake8 = "^7.2.0"
@@ -26,7 +26,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.flake8]
 max-line-length = 88
-extend-ignore = ["E203", "W503","E501"]
+extend-ignore = ["E203", "W503","E501","B008"]
 exclude = ["__init__.py"]
 [tool.poetry.scripts]
 structura = "structura_py.cli:structura"
@@ -36,7 +36,7 @@ multi_line_output = 3
 line_length = 88
 default_section = "THIRDPARTY"
 known_first_party = []
-known_third_party = ["inquirer", "pydantic", "rich", "setuptools", "typer", "yaml"]
+known_third_party = ["click", "inquirer", "pydantic", "rich", "setuptools", "typer", "yaml"]
 [tool.ruff]
 line-length = 200
 target-version = "py311"
